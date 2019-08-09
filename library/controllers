@@ -1,0 +1,78 @@
+<?php
+class oop{
+	function simpan($table,$field, $redirect){
+		$sql = "INSERT INTO $table SET $field";
+		$jalan = mysql_query($sql);
+		if($jalan){
+			echo "<script>alert('berhasil');document.location.href='$redirect'</script>";
+		} else {
+			echo mysql_error();
+		}
+	}
+
+	function tampil($table){
+		$sql = "SELECT * FROM $table";
+		$tampil = mysql_query($sql);
+		while($data = mysql_fetch_array($tampil))
+			$isi[] = $data;
+		return $isi;
+	}
+
+	function hapus($table, $where, $redirect){
+		$sql = "DELETE FROM $table WHERE $where";
+		$jalan = mysql_query($sql);
+		if($jalan){
+			echo "<script>alert('Berhasil');document.location.href='$redirect'</script>";
+		}else{
+			echo mysql_error();
+		}
+	}
+
+	function edit($table, $where){
+		$sql = "SELECT * FROM $table WHERE $where";
+		$jalan = mysql_fetch_array(mysql_query($sql));
+		return $jalan;
+	}
+
+	function ubah($table,$field, $where, $redirect){
+		$sql = "UPDATE $table SET $field";
+		$sql.="WHERE $where";
+		$jalan = mysql_query($sql);
+		if($jalan){
+			echo "<script>alert('Berhasil');document.location.href='$redirect'</script>";
+		}else{
+			echo mysql_error();
+		}
+	}
+
+	function upload($foto, $tempat){
+		$alamat = $foto['tmp_name'];
+		$namafile = $foto['name'];
+		move_uploaded_file($alamat, "$tempat/$namafile");
+		return $namafile;
+	}
+
+	function login($tbl, $username, $password, $nama_form,$jbt){
+		$sql = mysql_query("SELECT * FROM $tbl WHERE kd_user = '$username' AND jabatan = '$jbt'");
+		$user = mysql_num_rows($sql);
+		if ($user > 0) {
+			$pass = mysql_fetch_assoc($sql);
+			if ($pass['password'] == $password) {
+				$_SESSION[$jbt] = $username;
+				echo "<script>alert('Login Berhasil');document.location.href='$nama_form'</script>";			
+			}else{
+				echo "<script>alert('Password salah !');</script>";
+			}
+		}else{
+			echo "<script>alert('Username tidak terdaftar !');</script>";
+		}
+	}
+
+	function antiInject($data){
+		$filter = mysql_real_escape_string(stripcslashes(strip_tags(htmlspecialchars($data,ENT_QUOTES))));
+		return $filter;
+	}
+
+}
+$perintah = new oop();
+?>

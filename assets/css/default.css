@@ -1,0 +1,10 @@
+body{
+	padding: 0;
+	margin: 0;
+	font-family: calibri;
+}
+.login{
+	padding: 10px 65px;
+	border-radius: 5px;
+	border: 0;
+}
