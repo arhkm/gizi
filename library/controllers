@@ -59,7 +59,7 @@ class oop{
 			$pass = mysql_fetch_assoc($sql);
 			if ($pass['password'] == $password) {
 				$_SESSION[$jbt] = $username;
-				echo "<script>alert('Login Berhasil');document.location.href='$nama_form'</script>";			
+				echo "<script>alert('Login Berhasil');document.location.href='$nama_form'</script>";
 			}else{
 				echo "<script>alert('Password salah !');</script>";
 			}

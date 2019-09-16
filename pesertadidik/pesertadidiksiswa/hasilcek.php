@@ -1,8 +1,8 @@
 
-<?php 
-  @$nis = @$user[0]; 
+<?php
+  @$nis = @$user[0];
   @$tanggal = date("Y-m-d");
-  $data = mysql_fetch_array(mysql_query("SELECT * FROM hasil_tubuh WHERE nis ='$nis' and tanggal = '$tanggal'"));
+  $data = mysqli_fetch_array(mysqli_query($koneksi, "SELECT * FROM hasil_tubuh WHERE nis ='$nis' and tanggal = '$tanggal'"));
   //data untuk kebutuhan tubuh
   $idtubuh = $data['id_htubuh'];
   $imtnya = $data['imt'];
@@ -28,8 +28,8 @@
     $status = "NORMAL";
   }
 
-  //data untuk kandungan dalam tubuh
-  $data2 = mysql_fetch_array(mysql_query("SELECT * FROM hasil_makanan WHERE nis ='$nis' and tanggal = '$tanggal' "));
+  //data untuk kandungan dalam tubuh 
+  $data2 = mysqli_fetch_array(mysqli_query($koneksi, "SELECT * FROM hasil_makanan WHERE nis ='$nis' and tanggal = '$tanggal' "));
   $idmakanan = $data2['id_hmakanan'];
   $hkarbohidratnya = $data2['hkarbohidrat'];
   $hproteinnya = $data2['hprotein'];
@@ -37,8 +37,8 @@
 
   //perbandingan karbohidrat
   if ($hkarbohidratnya < $karbohidratnya) {
-      $k1 ="<p style='color:red'> tubuh anda kekurangan karbohidrat </p>"; 
-      $kk1 ="tubuh anda kekurangan karbohidrat"; 
+      $k1 ="<p style='color:red'> tubuh anda kekurangan karbohidrat </p>";
+      $kk1 ="tubuh anda kekurangan karbohidrat";
   }elseif ($hkarbohidratnya > $skarbohidratnya) {
       $k1 ="<p style='color:green'> Karbohidrat dalam tubuh anda melebihi yang dibutuhkan tubuh </p>";
       $kk1 ="Karbohidrat dalam tubuh anda melebihi yang dibutuhkan tubuh";
@@ -49,8 +49,8 @@
 
   //perbandingan protein
   if ($hproteinnya < $kproteinnya) {
-      $p1 ="<p style='color:red'> tubuh anda kekurangan protein</p>"; 
-      $pp1 ="tubuh anda kekurangan protein"; 
+      $p1 ="<p style='color:red'> tubuh anda kekurangan protein</p>";
+      $pp1 ="tubuh anda kekurangan protein";
   }elseif ($hproteinnya > $sproteinnya) {
       $p1 ="<p style='color:green'> Protein dalam tubuh anda melebihi yang dibutuhkan tubuh </p>";
       $pp1 ="Protein dalam tubuh anda melebihi yang dibutuhkan tubuh";
@@ -61,8 +61,8 @@
 
   //perbandingan lemak
   if ($hlemaknya < $klemaknya) {
-      $l1 ="<p style='color:red'> tubuh anda kekurangan lemak </p>"; 
-      $ll1 ="tubuh anda kekurangan lemak"; 
+      $l1 ="<p style='color:red'> tubuh anda kekurangan lemak </p>";
+      $ll1 ="tubuh anda kekurangan lemak";
   }elseif ($hlemaknya > $slemaknya) {
       $l1 ="<p style='color:green'> lemak dalam tubuh anda melebihi yang dibutuhkan tubuh </p>";
       $ll1 ="lemak dalam tubuh anda melebihi yang dibutuhkan tubuh";
@@ -72,13 +72,13 @@
   }
 
   if (isset($_POST['coba'])) {
-    $sql = mysql_query("SELECT * FROM hasil_cek WHERE nis = '$nis' AND tanggal = '$tanggal'");
-    $ceks = mysql_num_rows($sql);
+    $sql = mysqli_query("SELECT * FROM hasil_cek WHERE nis = '$nis' AND tanggal = '$tanggal'");
+    $ceks = mysqli_num_rows($koneksi, $sql);
     if ($ceks == 0) {
       @$redirect = "hal_pesertadidiks.php?page=home";
       @$table = "hasil_cek";
       @$field = "id_htubuh='".$idtubuh."',id_hmakanan='".$idmakanan."',nis='".$nis."',tanggal = '".$tanggal."',Keterangan_tubuh='".$status."',Keterangan_kar ='".$kk1."',Keterangan_prot ='".$pp1."',Keterangan_lem='".$ll1."'";
-       $perintah->simpan2($table,$field,$redirect);
+       $perintah->simpan2($koneksi,$table,$field,$redirect);
       echo "<script>document.location.href='hal_pesertadidiks.php?page=home';window.open('print.php?nis=$nis')</script>";
       }else{
             echo "<script>alert('anda sudah Menyimpan hasil cek anda !');document.location.href='hal_pesertadidiks.php?page=home'</script>";
@@ -130,7 +130,7 @@
                   <a>IMT : <d><?php echo "$imtnya"; ?></d></a><br><br>
                   <a>BBI : <d><?php echo "$bbinya"; ?></d></a><br><br>
                   <a>Keterangan : <d><?php echo "$status"; ?></d></a><br><br>
-                  
+
                 </li>
               </ul>
               </div>
@@ -139,7 +139,7 @@
                 <img src="../../assets/img/<?php echo $foto; ?>" width="145" height="100">
               </div>
               </div>
-              
+
             </div>
           </div>
         </div>
@@ -195,7 +195,7 @@
             <a  target='_blank' href="print.php?nis=<?php echo $nis; ?>" class="wavest-effect wavest-light btn blue">Print</a>
               </center>
             </div>
-          
+
           </div>
         </div>
       </div>

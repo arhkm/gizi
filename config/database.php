@@ -1,8 +1,13 @@
-<?php 
-	@$server ="localhost";
-	@$username = "root";
-	@$password ="";
-	@$database="gizi";
-	mysql_connect($server,$username,$password);
-	mysql_select_db($database) or die("Database tidak ditemulkan");
+<?php
+@$server ="127.0.0.1";
+@$username = "root";
+@$password ="";
+@$database="gizi";
+
+$koneksi = mysqli_connect($server,$username,$password,$database);
+
+// Check connection
+if (mysqli_connect_errno()){
+	echo "Koneksi database gagal : " . mysqli_connect_error();
+}
  ?>

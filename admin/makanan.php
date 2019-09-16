@@ -1,5 +1,5 @@
-<?php 
-  error_reporting(0); 
+<?php
+  error_reporting(0);
   $redirect ="hal_admin.php?page=makanan";
   $table ="tb_makanan";
   @$where = "Id = '$_GET[id]'";
@@ -15,15 +15,15 @@
 
   if (isset($_POST['simpan'])) {
     // echo "<script>alert('selamat')</script>";
-    $perintah->simpan($table,$field,$redirect);
+    $perintah->simpan($koneksi,$table,$field,$redirect);
   }
 
   if (isset($_GET['hapus'])) {
-    $perintah->hapus($table,$where,$redirect);
+    $perintah->hapus($koneksi,$table,$where,$redirect);
   }
 
   if (isset($_GET['edit'])) {
-    $modif = oop::edit($table,$where);
+    $modif = oop::edit($koneksi,$table,$where);
     $dis = "disabled";
   }else {
     $dos ="disabled";
@@ -32,11 +32,11 @@
   if (isset($_POST['update'])) {
      // echo "<script>alert('selamat')</script>";
 
-     oop::ubah($table, $field, $where, $redirect);
+     oop::ubah($koneksi,$table, $field, $where, $redirect);
   }
 
   if(isset($_POST['cari'])){
-    
+
   }
 
  ?>
@@ -58,7 +58,7 @@
 
 <form method="post">
 <div class="row" style="margin-top:5%; ">
-        <div class="col s6">
+        <div class="col s5">
           <div class="card ">
             <div class="card-content black-text">
               <center><span class="card-title">Input makanan yang sehat</span></center>
@@ -101,7 +101,7 @@
           <input id="last_name" type="number" class="validate" name="lemak" value="<?php echo @$modif[6];?>" required>
           <label for="last_name">Lemak</label>
         </div>
-        
+
          </div>
             </div>
             <div class="card-action">
@@ -117,14 +117,15 @@
           </div>
 
         </div>
-    
-        <div class="col s6">
+
+        <div class="col s7">
           <div class="card-panel" style="overflow-x: auto;">
               <div class="row">
                 <div class="col s12">
                   <table  id="data" class="table-apa ">
         <thead>
           <tr>
+              <th >No</th>
               <th >Nama</th>
               <th >Jenis</th>
               <th >Gram</th>
@@ -135,13 +136,15 @@
           </tr>
         </thead>
         <tbody>
-          <?php 
-            $a = oop::tampil2($table);
+          <?php
+            $a = oop::tampil2($koneksi,$table);
+            $no= 0;
             foreach ($a as $r) {
-
+            $no++
            ?>
 
            <tr>
+             <td><?php echo $no; ?></td>
              <td><?php echo $r[1] ?></td>
              <td><?php echo $r[4] ?></td>
              <td><?php echo $r[2] ?></td>
@@ -150,9 +153,9 @@
              <td><?php echo $r[6] ?></td>
              <td>
                 <a href="hal_admin.php?page=makanan&hapus&id=<?php echo $r[0] ?>" onClick="return confirm('Hapus Menu <?php echo $r[1]; ?> ?')" class=" tooltipped" data-position="bottom" data-delay="50" data-tooltip="Hapus">
-                <span class="fa fa-minus-square-o" style="color: red;"></span>
+                <span class="material-icons" style="color: red;">delete_forever</span>
                 </a>
-                <a href="hal_admin.php?page=makanan&edit&id=<?php echo $r[0] ?>" class=" tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit"><span class="fa fa-pencil-square-o"></span></a>
+                <a href="hal_admin.php?page=makanan&edit&id=<?php echo $r[0] ?>" class=" tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit"><span class="material-icons">edit</span></a>
              </td>
             </tr>
            <?php } ?>
@@ -164,15 +167,15 @@
   $(document).ready(function(){
     $('#data').DataTable();
   });
-  
-  
+
+
  </script>
                 </div>
               </div>
-            </div>            
+            </div>
 
           </div>
-          
+
         </div>
       </div>
 

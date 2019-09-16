@@ -1,17 +1,17 @@
-<?php 
+<?php
 session_start();
 
 	include "../../config/database.php";
 	include "../../library/controller.php";
 
 	$perintah = new oop();
-	@$perintah->tampil("tb_siswa WHERE NIS = '$_SESSION[nis]'");
-  @$user = mysql_fetch_array(mysql_query("SELECT * FROM tb_siswa WHERE NIS = '$_SESSION[nis]'"));
+	@$perintah->tampil($koneksi,"tb_siswa WHERE NIS = '$_SESSION[nis]'");
+  @$user = mysql_fetch_array(mysql_query($koneksi, "SELECT * FROM tb_siswa WHERE NIS = '$_SESSION[nis]'"));
 	if (empty($_SESSION['nis'])) {
 		echo "<script>alert('Masukan nis dan jenis kelamin !!');document.location.href='../index.php'</script>";
 	}
 
- ?>	
+ ?>
  <!DOCTYPE html>
  <html>
  <head>
@@ -45,7 +45,7 @@ session_start();
  </nav>
  <div class="row">
   	<div class="col s12">
-  		<?php  
+  		<?php
   			switch (@$_GET['page']) {
           case 'home':include 'home.php';break;
   				case 'cekkebutuhantubuh':include 'cekgizil.php';break;

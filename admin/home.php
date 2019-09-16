@@ -16,7 +16,7 @@
 <br><br><br><br><br><br><br><br><br>
 <center><h3>Selamat datang, <?php echo "$user"; ?></h3>
 <h5>Sistem Informasi Management Gizi</h5>
-<h6>Smk Wikrama Bogor</h6> 
+<h6>Smk Wikrama Bogor</h6>
 
 
 </center>

@@ -38,51 +38,51 @@
 		</tr>
 		</thead>
 	 	<tbody>
-		<?php 
-			
+		<?php
+
 			$table = "qw_laporan";
-			@$a = oop::tampil2($table);
+			@$a = oop::tampil2($koneksi,$table);
 			foreach ($a as $r) {
-				
-			
+
+
 		 $kkarbo = $r[6];
 		 $skarbo = $r[7];
-		 $kprot = $r[8];			
-		 $kprot1 = $r[9];			
-		 $klem = $r[10];			
+		 $kprot = $r[8];
+		 $kprot1 = $r[9];
+		 $klem = $r[10];
 		 $klem1 = $r[11];
 		 $bulan = substr($r[20], 5,2);
 		 switch ($bulan) {
-		 	case 01:$bln = "januari";
+		 	case "01":$bln = "januari";
 		 		break;
-		 	case 02:$bln = "Februari";
+		 	case "02":$bln = "Februari";
 		 		break;
-		 	case 03:$bln = "Maret";
+		 	case "03":$bln = "Maret";
 		 		break;
-		 	case 04:$bln = "April";
+		 	case "04":$bln = "April";
 		 		break;
-		 	case 05:$bln = "Mei";
+		 	case "05":$bln = "Mei";
 		 		break;
-		 	case 06:$bln = "Juni";
+		 	case "06":$bln = "Juni";
 		 		break;
-		 	case 07:$bln = "Juli";
+		 	case "07":$bln = "Juli";
 		 		break;
-		 	case 08:$bln = "Agustus";
+		 	case "08":$bln = "Agustus";
 		 		break;
-		 	case 09:$bln = "September";
+		 	case "09":$bln = "September";
 		 		break;
-		 	case 10:$bln = "Oktober";
+		 	case "10":$bln = "Oktober";
 		 		break;
-		 	case 11:$bln = "November";
+		 	case "11":$bln = "November";
 		 		break;
-		 	case 12:$bln = "Desember";
-		 		break;	
+		 	case "12":$bln = "Desember";
+		 		break;
 		 	default:
 		 		# code...
 		 		break;
-		 
+
 		 }
-		 
+
 		 ?>
 		 	<tr>
 		 		<td><?php echo $r[0]; ?></td>

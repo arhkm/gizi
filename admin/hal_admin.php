@@ -1,17 +1,17 @@
-<?php 
+<?php
 	session_start();
 
 	include "../config/database.php";
 	include "../library/controller.php";
 
 	$perintah = new oop();
-	@$perintah->tampil("tb_user WHERE username = '$_SESSION[username]'");
+	@$perintah->tampil($koneksi, "tb_user WHERE username = '$_SESSION[username]'");
 
 	if (empty($_SESSION['username'])) {
 		echo "<script>alert('Login dulu bos !!');document.location.href='index.php'</script>";
 	}
 
-	
+
 
  ?>
  <!DOCTYPE html>
@@ -21,7 +21,7 @@
   <link rel="stylesheet" type="text/css" href="../assets/css/css.css">
   <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="../assets/css/dataTables.min.css">
-  	
+
     <script type="text/javascript" src="../assets/js/jquery-2.2.0.min.js"></script>
   	<script type="text/javascript" src="../assets/js/materialize.min.js"></script>
     <script type="text/javascript" src="../assets/js/dataTables.material.min.js"></script>
@@ -38,7 +38,7 @@
 
       }
 
-  		
+
   	</style>
  </head>
  <body style="margin:0;padding: 0;">
@@ -55,11 +55,11 @@
 
   <div class="row">
   	<div class="col s12">
-  		<?php  
+  		<?php
   			switch (@$_GET['page']) {
   				case 'home':include 'home.php';break;
   				case 'makanan':include 'makanan.php';break;
-          		case 'datasiswa':include 'datasiswa.php';break; 
+          		case 'datasiswa':include 'datasiswa.php';break;
   			}
   		?>
   	</div>
@@ -71,9 +71,9 @@
   $(document).ready(function(){
     $('#data').DataTable();
   });
-  
-  
+
+
  </script>
  </body>
- 
+
  </html>
